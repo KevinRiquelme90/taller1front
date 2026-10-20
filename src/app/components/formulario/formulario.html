@@ -1,20 +1,83 @@
-<div class='contenedor-formulario'>
+<section class="formulario-panel">
+  <div class="formulario-panel__header">
+    <div>
+      <p class="formulario-panel__eyebrow">Registro</p>
+      <h2>{{ funcionarioSeleccionado ? 'Editar funcionario' : 'Crear funcionario' }}</h2>
+    </div>
+    @if (funcionarioSeleccionado) {
+      <button type="button" class="secondary-button" (click)="cancelarEdicion()">Cancelar</button>
+    }
+  </div>
 
-  <form class="formulario"(ngSubmit)="guardar()">
-    <h2>nueva persona</h2>
+  <form class="formulario" (ngSubmit)="guardar()">
+    <div class="formulario__grid">
+      <label class="field">
+        <span>Nombre</span>
+        <input type="text" name="nombre" [(ngModel)]="funcionario.nombre" required />
+      </label>
+
+      <label class="field">
+        <span>Apellido</span>
+        <input type="text" name="apellido" [(ngModel)]="funcionario.apellido" required />
+      </label>
+
+      <label class="field">
+        <span>Correo institucional</span>
+        <input type="email" name="correo" [(ngModel)]="funcionario.correo" required />
+      </label>
+
+      <label class="field">
+        <span>Teléfono o anexo</span>
+        <input type="text" name="telefono" [(ngModel)]="funcionario.telefono" required />
+      </label>
+
+      <label class="field">
+        <span>Unidad o departamento</span>
+        <select name="unidad" [(ngModel)]="funcionario.unidad" required>
+          <option value="">Seleccione</option>
+          @for (unidad of unidades; track unidad) {
+            <option [value]="unidad">{{ unidad }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Cargo</span>
+        <select name="cargo" [(ngModel)]="funcionario.cargo" required>
+          <option value="">Seleccione</option>
+          @for (cargo of cargos; track cargo) {
+            <option [value]="cargo">{{ cargo }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field field--full">
+        <span>Estado</span>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="estado" value="activo" [(ngModel)]="funcionario.estado" />
+            <span>Activo</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="estado" value="inactivo" [(ngModel)]="funcionario.estado" />
+            <span>Inactivo</span>
+          </label>
+        </div>
+      </label>
+    </div>
+
+    @if (errorMensaje) {
+      <p class="alert alert-error">{{ errorMensaje }}</p>
+    }
+
+    @if (exitoMensaje) {
+      <p class="alert alert-success">{{ exitoMensaje }}</p>
+    }
+
+    <div class="formulario__acciones">
+      <button type="submit" class="primary-button">
+        {{ funcionarioSeleccionado ? 'Guardar cambios' : 'Guardar funcionario' }}
+      </button>
+    </div>
   </form>
-
-  <label>
-    nombres
-    <input type ='text' name ="apellidos" [(ngModel)]="persona.apellidos" required>
-  </label>
-  <label>
-    correo
-    <input type ='text' name ="correo" [(ngModel)]="persona.correo" required>
-  </label>
-
-  <label>
-    nomb
-    <input type ='text' name ="apellidos" [(ngModel)]="persona.apellidos" required>
-  </label>
-</div>
+</section>

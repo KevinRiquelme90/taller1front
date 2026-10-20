@@ -1,21 +1,50 @@
-<div class="contenedor-tabla">
-  <h2> lista de personas</h2>
-  <table class="tabla">
-    <head >
-      <th>edad</th>
-      <th>ciudad</th>
-    </head>
+<section class="tabla-panel">
+  <div class="tabla-panel__encabezado">
+    <div>
+      <p class="tabla-panel__eyebrow">Directorio</p>
+      <h2>Funcionarios registrados</h2>
+    </div>
+  </div>
 
-    <tbody>
-      @for (persona of personas){
-        <tr>
-          <td>{{persona.nombres}}</td>
-          <td>{{persona.nombres}}</td>
-          <td>{{persona.nombres}}</td>
-          <td>{{persona.nombres}}</td>
-          <td>{{persona.nombres}}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</div>
+  @if (funcionarios.length === 0) {
+    <div class="tabla-panel__vacio">No hay funcionarios disponibles.</div>
+  } @else {
+    <div class="tabla-wrapper">
+      <table class="tabla" aria-label="Directorio de funcionarios">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Unidad</th>
+            <th>Cargo</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (funcionario of funcionarios; track funcionario.id) {
+            <tr>
+              <td>{{ funcionario.id }}</td>
+              <td>{{ funcionario.nombre }}</td>
+              <td>{{ funcionario.apellido }}</td>
+              <td>{{ funcionario.correo }}</td>
+              <td>{{ funcionario.telefono }}</td>
+              <td>{{ funcionario.unidad }}</td>
+              <td>{{ funcionario.cargo }}</td>
+              <td>
+                <span [class]="obtenerEstadoClase(funcionario.estado)">{{ funcionario.estado }}</span>
+              </td>
+              <td class="acciones">
+                <button type="button" class="tabla-button tabla-button--editar" (click)="editar(funcionario)">Editar</button>
+                <button type="button" class="tabla-button tabla-button--eliminar" (click)="eliminar(funcionario.id)">Eliminar</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

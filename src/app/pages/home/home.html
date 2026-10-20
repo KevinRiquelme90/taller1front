@@ -1,5 +1,71 @@
 <app-header></app-header>
-<app-formulario></app-formulario>
-<app-tabla></app-tabla>
+<div class="home-shell">
+  <section class="filtros-panel">
+    <div class="filtros-panel__header">
+      <div>
+        <p class="filtros-panel__eyebrow">Búsqueda y filtros</p>
+        <h2>Directorio municipal</h2>
+      </div>
+      <button type="button" class="secondary-button" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </div>
+
+    <div class="filtros-grid">
+      <label class="field">
+        <span>Buscar</span>
+        <input type="text" placeholder="Nombre, apellido o correo" [(ngModel)]="textoBusqueda" (input)="aplicarFiltros()" />
+      </label>
+
+      <label class="field">
+        <span>Unidad</span>
+        <select [(ngModel)]="unidadSeleccionada" (change)="aplicarFiltros()">
+          <option value="">Todas</option>
+          @for (unidad of unidades; track unidad) {
+            <option [value]="unidad">{{ unidad }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Cargo</span>
+        <select [(ngModel)]="cargoSeleccionado" (change)="aplicarFiltros()">
+          <option value="">Todos</option>
+          @for (cargo of cargos; track cargo) {
+            <option [value]="cargo">{{ cargo }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Estado</span>
+        <select [(ngModel)]="estadoSeleccionado" (change)="aplicarFiltros()">
+          <option value="">Todos</option>
+          <option value="activo">Activo</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </label>
+    </div>
+
+    <p class="resultados">{{ funcionariosFiltrados.length }} resultado(s)</p>
+
+    @if (mensajeResultado) {
+      <p class="alert alert-info">{{ mensajeResultado }}</p>
+    }
+  </section>
+
+  <app-formulario
+    [funcionarioSeleccionado]="funcionarioSeleccionado"
+    (guardarCompletado)="recargarFuncionarios()"
+  ></app-formulario>
+
+  @if (funcionariosFiltrados.length === 0) {
+    <div class="tabla-vacia">No existen coincidencias para los filtros actuales.</div>
+  } @else {
+    <app-tabla
+      [funcionarios]="funcionariosFiltrados"
+      (editarFuncionario)="abrirEdicion($event)"
+      (eliminarFuncionario)="confirmarEliminacion($event)"
+    ></app-tabla>
+  }
+</div>
 <app-footer></app-footer>
 

@@ -1,1 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --burgundy-900: #3b0d1a;
+  --burgundy-800: #551726;
+  --burgundy-700: #732338;
+  --burgundy-600: #8d2f46;
+  --burgundy-200: #f4dfe2;
+  --burgundy-100: #fbf1f3;
+  --ink-900: #2a171d;
+  --ink-700: #683548;
+  --paper: #f9f3f4;
+  --panel: #fffdfd;
+  --border: #edd8dc;
+  --success-bg: #edf9f3;
+  --success-text: #21593d;
+  --error-bg: #fff0f1;
+  --error-text: #8f2336;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Instagram Sans', 'Segoe UI Variable', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink-900);
+}
+
+body {
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+input, select {
+  color: var(--ink-900);
+}
+
+h1, h2, h3, p {
+  margin-top: 0;
+}
+

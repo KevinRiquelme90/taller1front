@@ -1,22 +1,30 @@
-import { Component } from '@angular/core';
-import {Persona} from '../../models/persona';
-import {LocalStorage} from '../../services/local-storage';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Funcionario, Persona } from '../../models/persona';
 
 @Component({
-  imports: [],
   selector: 'app-tabla',
-  styleUrl: './tabla.css',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './tabla.html',
+  styleUrl: './tabla.css',
 })
 export class Tabla {
-  personas: Persona[]= [];
+  @Input() funcionarios: Persona[] = [];
+  @Output() editarFuncionario = new EventEmitter<Persona>();
+  @Output() eliminarFuncionario = new EventEmitter<number>();
 
+  mostrarResultados = true;
 
-  constructor(private localStorage: LocalStorage) {}
-
-  ngOnInit() {
-    this.personas = this.localStorage.obtenerTodos();
-
+  editar(funcionario: Persona): void {
+    this.editarFuncionario.emit(funcionario);
   }
 
+  eliminar(id: number): void {
+    this.eliminarFuncionario.emit(id);
+  }
+
+  obtenerEstadoClase(estado: string): string {
+    return estado === 'activo' ? 'estado estado--activo' : 'estado estado--inactivo';
+  }
 }

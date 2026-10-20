@@ -1,11 +1,12 @@
 .app-footer {
-  background: #333;
-  color: #fff;
+  background: linear-gradient(135deg, var(--burgundy-900), var(--burgundy-700));
+  color: #fffafc;
   text-align: center;
-  padding: 10px;
-  margin-top: 24px;
+  padding: 1rem;
+  margin-top: 2rem;
 }
 
 .app-footer p {
   margin: 0;
+  font-size: 0.9rem;
 }

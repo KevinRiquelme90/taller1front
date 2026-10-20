@@ -1,25 +1,25 @@
-import { Service } from '@angular/core';
-import{Persona} from '../models/persona';
+import { Injectable } from '@angular/core';
 
-
-@Service()
+@Injectable({ providedIn: 'root' })
 export class LocalStorage {
-  private readonly CLAVE = 'personas';
+  leer<T>(clave: string): T | null {
+    const datos = window.localStorage.getItem(clave);
+    if (!datos) {
+      return null;
+    }
 
-
-  obtenerTodos(): Persona [] {
-    const datos = LocalStorage.getItem(this.CLAVE);
-    return datos ? json.parse(datos) : [];
+    try {
+      return JSON.parse(datos) as T;
+    } catch {
+      return null;
+    }
   }
 
-  guardar(persona: Persona): void {
-    const personas = this.obtenerTodos();
-    personas.push(persona);
-    localStorage.setItem(this.CLAVE, JSON.stringify(personas));
-
+  guardar<T>(clave: string, valor: T): void {
+    window.localStorage.setItem(clave, JSON.stringify(valor));
   }
 
-  eliminar(): void {
-
+  eliminar(clave: string): void {
+    window.localStorage.removeItem(clave);
   }
 }

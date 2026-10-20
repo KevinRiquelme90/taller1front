@@ -1,0 +1,46 @@
+<main class="login-page">
+  <section class="login-card">
+    <div class="login-card__header">
+      <p class="login-card__eyebrow">Acceso institucional</p>
+      <h1>Directorio de funcionarios</h1>
+    </div>
+
+    <form class="login-form" (ngSubmit)="iniciarSesion()" #formLogin="ngForm">
+      <label class="field">
+        <span>Correo institucional</span>
+        <input
+          type="email"
+          name="correo"
+          [(ngModel)]="correo"
+          placeholder="admin@municipalidad.cl"
+          required
+        />
+      </label>
+
+      <label class="field">
+        <span>Contraseña</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Ingrese su contraseña"
+          required
+        />
+      </label>
+
+      <button type="submit" class="login-button">Iniciar sesión</button>
+
+      <p class="demo-credentials">
+        Usuario demo: <strong>admin@municipalidad.cl</strong> / <strong>admin123</strong>
+      </p>
+
+      @if (mensajeError) {
+        <p class="alert alert-error">{{ mensajeError }}</p>
+      }
+
+      @if (mensajeExito) {
+        <p class="alert alert-success">{{ mensajeExito }}</p>
+      }
+    </form>
+  </section>
+</main>

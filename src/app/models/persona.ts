@@ -1,8 +1,12 @@
-export interface Persona {
+export interface Funcionario {
+  id: number;
   nombre: string;
   apellido: string;
   correo: string;
-  edad: number;
-  ciudad:string;
-
+  telefono: string;
+  unidad: string;
+  cargo: string;
+  estado: 'activo' | 'inactivo';
 }
+
+export type Persona = Funcionario;
